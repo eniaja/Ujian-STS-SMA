@@ -5,11 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sumatif Tengah Semester</title>
 
-<!-- Library untuk membaca file Word -->
+<!-- Library membaca Word -->
 <script src="https://unpkg.com/jszip@3.10.1/dist/jszip.min.js"></script>
 <script src="https://unpkg.com/docx-preview@0.4.1/dist/docx-preview.min.js"></script>
 
 <style>
+
 * {
     box-sizing: border-box;
 }
@@ -56,8 +57,7 @@ label {
     font-weight: bold;
 }
 
-input,
-select {
+input {
     width: 100%;
     padding: 13px;
     margin-top: 7px;
@@ -117,11 +117,13 @@ button {
 
 .school-title {
     font-weight: bold;
+    font-size: 18px;
 }
 
 .student-info {
     font-size: 14px;
     color: #555;
+    margin-top: 5px;
 }
 
 .timer {
@@ -165,7 +167,7 @@ button {
     border-radius: 6px;
 }
 
-/* Area Word */
+/* ================= WORD ================= */
 
 #wordContainer {
     background: #ddd;
@@ -174,8 +176,6 @@ button {
     overflow-x: auto;
     border-radius: 8px;
 }
-
-/* docx-preview */
 
 .docx-wrapper {
     background: #ddd !important;
@@ -274,13 +274,15 @@ button {
         padding: 5px !important;
     }
 }
+
 </style>
 </head>
 
 <body>
 
+
 <!-- =====================================================
-     HALAMAN LOGIN
+     LOGIN
 ===================================================== -->
 
 <div id="loginPage" class="page">
@@ -292,25 +294,31 @@ button {
         <p>Silakan isi data sebelum memulai STS.</p>
 
         <label>Nama Siswa</label>
+
         <input
             type="text"
             id="studentName"
             placeholder="Masukkan nama lengkap"
         >
 
+
         <label>Kelas</label>
+
         <input
             type="text"
             id="studentClass"
             placeholder="Contoh: VII A"
         >
 
+
         <label>Password Ulangan</label>
+
         <input
             type="password"
             id="studentPassword"
             placeholder="Masukkan password"
         >
+
 
         <button
             class="btn-primary"
@@ -319,7 +327,11 @@ button {
             MULAI ULANGAN
         </button>
 
-        <div id="loginError" class="error"></div>
+
+        <div
+            id="loginError"
+            class="error">
+        </div>
 
     </div>
 
@@ -339,7 +351,7 @@ button {
             <div>
 
                 <div class="school-title">
-                    🏫 ULANGAN INFORMATIKA
+                    🏫 SUMATIF TENGAH SEMESTER
                 </div>
 
                 <div class="student-info">
@@ -356,27 +368,37 @@ button {
 
             </div>
 
-            <div class="timer" id="timer">
+
+            <div
+                class="timer"
+                id="timer">
+
                 00:00:00
+
             </div>
 
         </div>
+
 
         <div class="toolbar">
 
             <button
                 class="btn-fullscreen"
-                onclick="goFullscreen()"
-            >
+                onclick="goFullscreen()">
+
                 ⛶ FULLSCREEN
+
             </button>
+
 
             <button
                 class="btn-word"
-                onclick="chooseWordFile()"
-            >
+                onclick="chooseWordFile()">
+
                 📄 PILIH FILE WORD
+
             </button>
+
 
             <input
                 type="file"
@@ -398,7 +420,8 @@ button {
             <b>Petunjuk:</b>
 
             Bacalah soal dengan teliti.
-            Tuliskan jawaban pada lembar jawaban/kertas yang telah disediakan.
+            Tuliskan jawaban pada lembar jawaban/kertas
+            yang telah disediakan.
             Jangan menutup halaman ulangan selama ujian berlangsung.
 
         </div>
@@ -445,11 +468,16 @@ button {
             placeholder="Password Pengawas"
         >
 
+
         <button onclick="unlockExam()">
             BUKA ULANGAN
         </button>
 
-        <div id="lockError" class="error"></div>
+
+        <div
+            id="lockError"
+            class="error">
+        </div>
 
     </div>
 
@@ -464,7 +492,9 @@ button {
 
     <div class="finished-card">
 
-        <h1>⏰ WAKTU ULANGAN TELAH SELESAI</h1>
+        <h1>
+            ⏰ WAKTU ULANGAN TELAH SELESAI
+        </h1>
 
         <p>
             Waktu pengerjaan telah berakhir.
@@ -487,29 +517,13 @@ button {
 
 const CONFIG = {
 
-    /*
-       UBAH TANGGAL DAN JAM DI SINI
-    */
-
     startDate: "2026-09-23T13:18:00",
 
     endDate: "2026-09-23T15:00:00",
 
-    /*
-       PASSWORD SISWA
-    */
-
     studentPassword: "siswa123",
 
-    /*
-       PASSWORD GURU/PENGAWAS
-    */
-
     supervisorPassword: "guru123",
-
-    /*
-       NAMA FILE WORD
-    */
 
     wordFile: "soal.docx"
 
@@ -521,7 +535,9 @@ const CONFIG = {
 ===================================================== */
 
 let examStarted = false;
+
 let examLocked = false;
+
 let examFinished = false;
 
 let timerInterval;
@@ -534,13 +550,24 @@ let timerInterval;
 function startExam() {
 
     const name =
-        document.getElementById("studentName").value.trim();
+        document
+        .getElementById("studentName")
+        .value
+        .trim();
+
 
     const studentClass =
-        document.getElementById("studentClass").value.trim();
+        document
+        .getElementById("studentClass")
+        .value
+        .trim();
+
 
     const password =
-        document.getElementById("studentPassword").value;
+        document
+        .getElementById("studentPassword")
+        .value;
+
 
     const error =
         document.getElementById("loginError");
@@ -549,29 +576,40 @@ function startExam() {
     error.textContent = "";
 
 
-    if (!name || !studentClass || !password) {
+    if (
+        !name ||
+        !studentClass ||
+        !password
+    ) {
 
         error.textContent =
             "Semua data harus diisi.";
 
         return;
+
     }
 
 
-    if (password !== CONFIG.studentPassword) {
+    if (
+        password !==
+        CONFIG.studentPassword
+    ) {
 
         error.textContent =
             "Password ulangan salah.";
 
         return;
+
     }
 
 
     const now = new Date();
 
-    const start = new Date(CONFIG.startDate);
+    const start =
+        new Date(CONFIG.startDate);
 
-    const end = new Date(CONFIG.endDate);
+    const end =
+        new Date(CONFIG.endDate);
 
 
     if (now < start) {
@@ -580,6 +618,7 @@ function startExam() {
             "Ulangan belum dimulai.";
 
         return;
+
     }
 
 
@@ -588,26 +627,35 @@ function startExam() {
         showFinished();
 
         return;
+
     }
 
 
-    document.getElementById("displayName").textContent = name;
+    document
+        .getElementById("displayName")
+        .textContent = name;
 
-    document.getElementById("displayClass").textContent =
-        studentClass;
+
+    document
+        .getElementById("displayClass")
+        .textContent = studentClass;
 
 
-    document.getElementById("loginPage").style.display =
-        "none";
+    document
+        .getElementById("loginPage")
+        .style.display = "none";
 
-    document.getElementById("examPage").style.display =
-        "block";
+
+    document
+        .getElementById("examPage")
+        .style.display = "block";
 
 
     examStarted = true;
 
 
     loadWordFromGitHub();
+
 
     startTimer();
 
@@ -620,46 +668,69 @@ function startExam() {
 
 async function loadWordFromGitHub() {
 
-    const container = document.getElementById("wordContainer");
+    const container =
+        document.getElementById("wordContainer");
+
 
     container.innerHTML = `
+
         <div style="
             background:white;
             padding:30px;
             text-align:center;
             border-radius:10px;
         ">
+
             ⏳ Sedang memuat soal Word...
+
         </div>
+
     `;
+
 
     try {
 
-        // Membuat alamat file berdasarkan lokasi website
-        const wordURL = new URL(
-            CONFIG.wordFile,
-            window.location.href
-        ).href;
+        const wordURL =
+            new URL(
+                CONFIG.wordFile,
+                window.location.href
+            ).href;
 
-        console.log("Alamat Word:", wordURL);
 
-        const response = await fetch(
-            wordURL,
-            {
-                cache: "no-cache"
-            }
+        console.log(
+            "Alamat Word:",
+            wordURL
         );
 
-        console.log("Status file:", response.status);
+
+        const response =
+            await fetch(
+                wordURL,
+                {
+                    cache: "no-cache"
+                }
+            );
+
+
+        console.log(
+            "Status file:",
+            response.status
+        );
+
 
         if (!response.ok) {
+
             throw new Error(
                 "File Word tidak ditemukan. Status: "
                 + response.status
             );
+
         }
 
-        const blob = await response.blob();
+
+        const blob =
+            await response.blob();
+
 
         console.log(
             "Ukuran file:",
@@ -667,45 +738,74 @@ async function loadWordFromGitHub() {
             "bytes"
         );
 
+
         if (blob.size === 0) {
+
             throw new Error(
                 "File Word kosong."
             );
+
         }
+
 
         container.innerHTML = "";
 
+
         await docx.renderAsync(
+
             blob,
+
             container,
+
             null,
+
             {
+
                 className: "docx",
+
                 inWrapper: true,
+
                 breakPages: true,
+
                 ignoreWidth: false,
+
                 ignoreHeight: false,
+
                 ignoreFonts: false,
+
                 useBase64URL: true,
+
                 renderHeaders: true,
+
                 renderFooters: true,
+
                 renderFootnotes: true,
+
                 renderEndnotes: true,
+
                 experimental: false,
-                debug: true
+
+                debug: false
+
             }
+
         );
+
 
         console.log(
             "✅ File Word berhasil ditampilkan."
         );
 
-    } catch (error) {
+    }
+
+
+    catch (error) {
 
         console.error(
             "❌ Gagal membaca Word:",
             error
         );
+
 
         container.innerHTML = `
 
@@ -717,13 +817,17 @@ async function loadWordFromGitHub() {
             ">
 
                 <h2 style="color:#dc2626;">
+
                     ⚠️ SOAL WORD TIDAK DAPAT DIMUAT
+
                 </h2>
+
 
                 <p>
                     Terjadi kesalahan saat membaca
                     file soal.
                 </p>
+
 
                 <p style="
                     background:#f3f4f6;
@@ -731,112 +835,18 @@ async function loadWordFromGitHub() {
                     border-radius:8px;
                     word-break:break-word;
                 ">
+
                     ${error.message}
+
                 </p>
 
+
                 <p>
+
                     Silakan tekan tombol
                     <b>PILIH FILE WORD</b>
                     untuk mencoba membuka file secara manual.
-                </p>
 
-            </div>
-
-        `;
-    }
-}
-    const container =
-        document.getElementById("wordContainer");
-
-
-    container.innerHTML =
-        "<p style='text-align:center;'>⏳ Memuat soal Word...</p>";
-
-
-    try {
-
-        const response =
-            await fetch(CONFIG.wordFile);
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "File Word tidak ditemukan."
-            );
-
-        }
-
-
-        const arrayBuffer =
-            await response.arrayBuffer();
-
-
-        container.innerHTML = "";
-
-
-        await docx.renderAsync(
-
-            arrayBuffer,
-
-            container,
-
-            null,
-
-            {
-
-                className: "docx",
-
-                inWrapper: true,
-
-                ignoreWidth: false,
-
-                ignoreHeight: false,
-
-                breakPages: true,
-
-                ignoreLastRenderedPageBreak: false,
-
-                experimental: false,
-
-                trimXmlDeclaration: true,
-
-                useBase64URL: true,
-
-                useMathMLPolyfill: true
-
-            }
-
-        );
-
-    }
-
-    catch(error) {
-
-        console.error(error);
-
-
-        container.innerHTML = `
-
-            <div style="
-                background:white;
-                padding:25px;
-                border-radius:10px;
-                text-align:center;
-            ">
-
-                <h3>⚠️ Soal Word tidak dapat dimuat</h3>
-
-                <p>
-                    Pastikan file
-                    <b>${CONFIG.wordFile}</b>
-                    sudah di-upload ke repository GitHub.
-                </p>
-
-                <p>
-                    Jika membuka website secara lokal,
-                    gunakan tombol
-                    <b>PILIH FILE WORD</b>.
                 </p>
 
             </div>
@@ -861,22 +871,45 @@ function chooseWordFile() {
 }
 
 
+/* =====================================================
+   MEMBACA WORD YANG DIPILIH
+===================================================== */
+
 async function loadSelectedWord(event) {
 
     const file =
         event.target.files[0];
 
 
-    if (!file) return;
+    if (!file) {
+
+        return;
+
+    }
 
 
     const container =
         document.getElementById("wordContainer");
 
 
+    container.innerHTML = `
+
+        <div style="
+            background:white;
+            padding:30px;
+            text-align:center;
+        ">
+
+            ⏳ Membaca file Word...
+
+        </div>
+
+    `;
+
+
     try {
 
-        const arrayBuffer =
+        const blob =
             await file.arrayBuffer();
 
 
@@ -885,7 +918,7 @@ async function loadSelectedWord(event) {
 
         await docx.renderAsync(
 
-            arrayBuffer,
+            blob,
 
             container,
 
@@ -899,9 +932,19 @@ async function loadSelectedWord(event) {
 
                 breakPages: true,
 
+                ignoreWidth: false,
+
+                ignoreHeight: false,
+
                 useBase64URL: true,
 
-                useMathMLPolyfill: true
+                renderHeaders: true,
+
+                renderFooters: true,
+
+                renderFootnotes: true,
+
+                renderEndnotes: true
 
             }
 
@@ -909,10 +952,33 @@ async function loadSelectedWord(event) {
 
     }
 
-    catch(error) {
 
-        container.innerHTML =
-            "<p>File Word tidak dapat dibaca.</p>";
+    catch (error) {
+
+        console.error(error);
+
+
+        container.innerHTML = `
+
+            <div style="
+                background:white;
+                padding:30px;
+                text-align:center;
+                border-radius:10px;
+            ">
+
+                <h3 style="color:#dc2626;">
+                    ⚠️ File Word tidak dapat dibaca
+                </h3>
+
+                <p>
+                    Pastikan file yang dipilih
+                    benar-benar berformat .docx
+                </p>
+
+            </div>
+
+        `;
 
     }
 
@@ -929,21 +995,38 @@ function startTimer() {
 
 
     timerInterval =
-        setInterval(updateTimer, 1000);
+        setInterval(
+            updateTimer,
+            1000
+        );
 
 }
 
 
+/* =====================================================
+   UPDATE TIMER
+===================================================== */
+
 function updateTimer() {
 
-    if (!examStarted || examFinished) {
+    if (
+        !examStarted ||
+        examFinished
+    ) {
+
         return;
+
     }
 
 
-    const now = new Date();
+    const now =
+        new Date();
 
-    const end = new Date(CONFIG.endDate);
+
+    const end =
+        new Date(
+            CONFIG.endDate
+        );
 
 
     const difference =
@@ -952,9 +1035,13 @@ function updateTimer() {
 
     if (difference <= 0) {
 
-        clearInterval(timerInterval);
+        clearInterval(
+            timerInterval
+        );
+
 
         showFinished();
+
 
         return;
 
@@ -962,11 +1049,15 @@ function updateTimer() {
 
 
     const totalSeconds =
-        Math.floor(difference / 1000);
+        Math.floor(
+            difference / 1000
+        );
 
 
     const hours =
-        Math.floor(totalSeconds / 3600);
+        Math.floor(
+            totalSeconds / 3600
+        );
 
 
     const minutes =
@@ -979,12 +1070,16 @@ function updateTimer() {
         totalSeconds % 60;
 
 
-    document.getElementById("timer").textContent =
+    document
+        .getElementById("timer")
+        .textContent =
 
         String(hours).padStart(2, "0")
-        + ":" +
+        + ":"
+        +
         String(minutes).padStart(2, "0")
-        + ":" +
+        + ":"
+        +
         String(seconds).padStart(2, "0");
 
 }
@@ -996,16 +1091,22 @@ function updateTimer() {
 
 function goFullscreen() {
 
-    const element = document.documentElement;
+    const element =
+        document.documentElement;
 
 
-    if (element.requestFullscreen) {
+    if (
+        element.requestFullscreen
+    ) {
 
         element.requestFullscreen();
 
     }
 
-    else if (element.webkitRequestFullscreen) {
+
+    else if (
+        element.webkitRequestFullscreen
+    ) {
 
         element.webkitRequestFullscreen();
 
@@ -1015,7 +1116,7 @@ function goFullscreen() {
 
 
 /* =====================================================
-   DETEKSI PINDAH TAB / APLIKASI
+   DETEKSI PINDAH TAB
 ===================================================== */
 
 document.addEventListener(
@@ -1023,13 +1124,21 @@ document.addEventListener(
     function() {
 
         if (
+
             document.visibilityState === "hidden"
+
             &&
+
             examStarted
+
             &&
+
             !examFinished
+
             &&
+
             !examLocked
+
         ) {
 
             lockExam(
@@ -1043,49 +1152,58 @@ document.addEventListener(
 
 
 /* =====================================================
-   LOCK EXAM
+   KUNCI ULANGAN
 ===================================================== */
 
 function lockExam(message) {
 
-    if (examFinished) return;
+    if (examFinished) {
+
+        return;
+
+    }
 
 
     examLocked = true;
 
 
-    document.getElementById("examPage")
+    document
+        .getElementById("examPage")
         .style.display = "none";
 
 
-    document.getElementById("lockPage")
+    document
+        .getElementById("lockPage")
         .style.display = "flex";
 
 
-    document.getElementById("lockMessage")
+    document
+        .getElementById("lockMessage")
         .textContent = message;
 
 
-    document.getElementById("supervisorPassword")
+    document
+        .getElementById("supervisorPassword")
         .value = "";
 
 }
 
 
 /* =====================================================
-   UNLOCK
+   BUKA KUNCI
 ===================================================== */
 
 function unlockExam() {
 
     const password =
         document
-            .getElementById("supervisorPassword")
-            .value;
+        .getElementById("supervisorPassword")
+        .value;
 
 
     const error =
-        document.getElementById("lockError");
+        document
+        .getElementById("lockError");
 
 
     error.textContent = "";
@@ -1104,9 +1222,14 @@ function unlockExam() {
     }
 
 
-    const now = new Date();
+    const now =
+        new Date();
 
-    const end = new Date(CONFIG.endDate);
+
+    const end =
+        new Date(
+            CONFIG.endDate
+        );
 
 
     if (now >= end) {
@@ -1121,18 +1244,20 @@ function unlockExam() {
     examLocked = false;
 
 
-    document.getElementById("lockPage")
+    document
+        .getElementById("lockPage")
         .style.display = "none";
 
 
-    document.getElementById("examPage")
+    document
+        .getElementById("examPage")
         .style.display = "block";
 
 }
 
 
 /* =====================================================
-   SELESAI
+   ULANGAN SELESAI
 ===================================================== */
 
 function showFinished() {
@@ -1141,29 +1266,36 @@ function showFinished() {
 
     examStarted = false;
 
-    clearInterval(timerInterval);
+
+    clearInterval(
+        timerInterval
+    );
 
 
-    document.getElementById("loginPage")
+    document
+        .getElementById("loginPage")
         .style.display = "none";
 
 
-    document.getElementById("examPage")
+    document
+        .getElementById("examPage")
         .style.display = "none";
 
 
-    document.getElementById("lockPage")
+    document
+        .getElementById("lockPage")
         .style.display = "none";
 
 
-    document.getElementById("finishedPage")
+    document
+        .getElementById("finishedPage")
         .style.display = "flex";
 
 }
 
 
 /* =====================================================
-   BLOKIR COPY / CUT / KLIK KANAN
+   BLOKIR KLIK KANAN
 ===================================================== */
 
 document.addEventListener(
@@ -1171,31 +1303,9 @@ document.addEventListener(
     function(event) {
 
         if (examStarted) {
+
             event.preventDefault();
-        }
 
-    }
-);
-
-
-document.addEventListener(
-    "copy",
-    function(event) {
-
-        if (examStarted) {
-            event.preventDefault();
-        }
-
-    }
-);
-
-
-document.addEventListener(
-    "cut",
-    function(event) {
-
-        if (examStarted) {
-            event.preventDefault();
         }
 
     }
@@ -1203,23 +1313,80 @@ document.addEventListener(
 
 
 /* =====================================================
-   BLOKIR BEBERAPA SHORTCUT
+   BLOKIR COPY
+===================================================== */
+
+document.addEventListener(
+    "copy",
+    function(event) {
+
+        if (examStarted) {
+
+            event.preventDefault();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   BLOKIR CUT
+===================================================== */
+
+document.addEventListener(
+    "cut",
+    function(event) {
+
+        if (examStarted) {
+
+            event.preventDefault();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   BLOKIR SHORTCUT
 ===================================================== */
 
 document.addEventListener(
     "keydown",
     function(event) {
 
-        if (!examStarted) return;
+        if (!examStarted) {
+
+            return;
+
+        }
 
 
         if (
-            (event.ctrlKey && event.key === "c") ||
-            (event.ctrlKey && event.key === "x") ||
-            (event.ctrlKey && event.key === "u") ||
-            (event.ctrlKey && event.key === "s") ||
-            (event.ctrlKey && event.key === "p") ||
+
+            (event.ctrlKey && event.key === "c")
+
+            ||
+
+            (event.ctrlKey && event.key === "x")
+
+            ||
+
+            (event.ctrlKey && event.key === "u")
+
+            ||
+
+            (event.ctrlKey && event.key === "s")
+
+            ||
+
+            (event.ctrlKey && event.key === "p")
+
+            ||
+
             event.key === "F12"
+
         ) {
 
             event.preventDefault();
@@ -1231,7 +1398,7 @@ document.addEventListener(
 
 
 /* =====================================================
-   PERINGATAN SAAT MENINGGALKAN HALAMAN
+   PERINGATAN KELUAR HALAMAN
 ===================================================== */
 
 window.addEventListener(
