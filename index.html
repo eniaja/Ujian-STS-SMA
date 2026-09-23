@@ -620,6 +620,131 @@ function startExam() {
 
 async function loadWordFromGitHub() {
 
+    const container = document.getElementById("wordContainer");
+
+    container.innerHTML = `
+        <div style="
+            background:white;
+            padding:30px;
+            text-align:center;
+            border-radius:10px;
+        ">
+            ⏳ Sedang memuat soal Word...
+        </div>
+    `;
+
+    try {
+
+        // Membuat alamat file berdasarkan lokasi website
+        const wordURL = new URL(
+            CONFIG.wordFile,
+            window.location.href
+        ).href;
+
+        console.log("Alamat Word:", wordURL);
+
+        const response = await fetch(
+            wordURL,
+            {
+                cache: "no-cache"
+            }
+        );
+
+        console.log("Status file:", response.status);
+
+        if (!response.ok) {
+            throw new Error(
+                "File Word tidak ditemukan. Status: "
+                + response.status
+            );
+        }
+
+        const blob = await response.blob();
+
+        console.log(
+            "Ukuran file:",
+            blob.size,
+            "bytes"
+        );
+
+        if (blob.size === 0) {
+            throw new Error(
+                "File Word kosong."
+            );
+        }
+
+        container.innerHTML = "";
+
+        await docx.renderAsync(
+            blob,
+            container,
+            null,
+            {
+                className: "docx",
+                inWrapper: true,
+                breakPages: true,
+                ignoreWidth: false,
+                ignoreHeight: false,
+                ignoreFonts: false,
+                useBase64URL: true,
+                renderHeaders: true,
+                renderFooters: true,
+                renderFootnotes: true,
+                renderEndnotes: true,
+                experimental: false,
+                debug: true
+            }
+        );
+
+        console.log(
+            "✅ File Word berhasil ditampilkan."
+        );
+
+    } catch (error) {
+
+        console.error(
+            "❌ Gagal membaca Word:",
+            error
+        );
+
+        container.innerHTML = `
+
+            <div style="
+                background:white;
+                padding:30px;
+                border-radius:10px;
+                text-align:center;
+            ">
+
+                <h2 style="color:#dc2626;">
+                    ⚠️ SOAL WORD TIDAK DAPAT DIMUAT
+                </h2>
+
+                <p>
+                    Terjadi kesalahan saat membaca
+                    file soal.
+                </p>
+
+                <p style="
+                    background:#f3f4f6;
+                    padding:15px;
+                    border-radius:8px;
+                    word-break:break-word;
+                ">
+                    ${error.message}
+                </p>
+
+                <p>
+                    Silakan tekan tombol
+                    <b>PILIH FILE WORD</b>
+                    untuk mencoba membuka file secara manual.
+                </p>
+
+            </div>
+
+        `;
+    }
+}
     const container =
         document.getElementById("wordContainer");
 
