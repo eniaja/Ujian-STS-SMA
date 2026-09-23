@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
 <title>Sumatif Tengah Semester</title>
 
-<!-- Library membaca Word -->
 <script src="https://unpkg.com/jszip@3.10.1/dist/jszip.min.js"></script>
-<script src="https://unpkg.com/docx-preview@0.4.1/dist/docx-preview.min.js"></script>
+
+<script src="https://unpkg.com/docx-preview@0.3.7/dist/docx-preview.min.js"></script>
+
 
 <style>
 
@@ -19,279 +25,317 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     background: #eef2f7;
-    color: #222;
 }
 
-/* ================= LOGIN ================= */
 
-.page {
+/* LOGIN */
+
+#loginPage {
+
     min-height: 100vh;
+
     display: flex;
+
     align-items: center;
+
     justify-content: center;
+
     padding: 20px;
+
 }
+
 
 .card {
+
     width: 100%;
+
     max-width: 500px;
+
     background: white;
+
     padding: 30px;
+
     border-radius: 18px;
+
     box-shadow: 0 8px 30px rgba(0,0,0,.12);
+
 }
 
-.card h1 {
+
+h1 {
+
     text-align: center;
-    margin-top: 0;
+
 }
 
-.card p {
-    text-align: center;
-    color: #666;
-}
 
 label {
+
     display: block;
+
     margin-top: 15px;
+
     font-weight: bold;
+
 }
+
 
 input {
+
     width: 100%;
+
     padding: 13px;
+
     margin-top: 7px;
+
     border: 1px solid #ccc;
+
     border-radius: 8px;
+
     font-size: 16px;
+
 }
+
 
 button {
+
     border: none;
+
     border-radius: 8px;
-    padding: 12px 18px;
+
+    padding: 13px;
+
     font-size: 15px;
-    cursor: pointer;
+
     font-weight: bold;
+
+    cursor: pointer;
+
 }
 
-.btn-primary {
+
+#startButton {
+
     width: 100%;
+
     margin-top: 22px;
+
     background: #2563eb;
+
     color: white;
+
 }
 
-.btn-primary:hover {
-    background: #1d4ed8;
-}
 
 .error {
-    color: #dc2626;
+
+    color: red;
+
     text-align: center;
+
     margin-top: 15px;
-    font-weight: bold;
+
 }
 
-/* ================= UJIAN ================= */
+
+/* UJIAN */
 
 #examPage {
+
     display: none;
+
 }
+
 
 .header {
+
     position: sticky;
+
     top: 0;
+
     z-index: 1000;
+
     background: white;
+
     box-shadow: 0 2px 10px rgba(0,0,0,.12);
+
 }
 
-.header-top {
+
+.headerTop {
+
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
-    padding: 12px 18px;
-    gap: 10px;
+
+    padding: 15px;
+
 }
 
-.school-title {
-    font-weight: bold;
-    font-size: 18px;
-}
-
-.student-info {
-    font-size: 14px;
-    color: #555;
-    margin-top: 5px;
-}
 
 .timer {
+
     background: #dc2626;
+
     color: white;
+
     padding: 10px 15px;
+
     border-radius: 8px;
+
     font-weight: bold;
-    white-space: nowrap;
+
 }
+
 
 .toolbar {
-    display: flex;
-    gap: 8px;
-    padding: 10px 18px;
-    border-top: 1px solid #eee;
-    flex-wrap: wrap;
+
+    padding: 10px 15px;
+
+    border-top: 1px solid #ddd;
+
 }
 
-.btn-fullscreen {
+
+.toolbar button {
+
     background: #111827;
+
     color: white;
+
+    margin-right: 5px;
+
 }
 
-.btn-word {
-    background: #059669;
-    color: white;
-}
-
-.exam-content {
-    max-width: 1100px;
-    margin: auto;
-    padding: 20px;
-}
-
-.notice {
-    background: #fff7ed;
-    border-left: 5px solid #f97316;
-    padding: 12px;
-    margin-bottom: 20px;
-    border-radius: 6px;
-}
-
-/* ================= WORD ================= */
 
 #wordContainer {
+
+    max-width: 1100px;
+
+    margin: 20px auto;
+
     background: #ddd;
-    min-height: 400px;
+
     padding: 20px;
+
     overflow-x: auto;
-    border-radius: 8px;
+
 }
+
 
 .docx-wrapper {
+
     background: #ddd !important;
-    padding: 20px !important;
+
 }
 
-.docx-wrapper section.docx {
-    margin-bottom: 20px;
-}
 
-/* ================= LOCK ================= */
+/* LOCK */
 
-.lock-page {
-    min-height: 100vh;
+#lockPage {
+
     display: none;
+
+    min-height: 100vh;
+
     align-items: center;
+
     justify-content: center;
+
     padding: 20px;
+
 }
 
-.lock-card {
+
+.lockCard {
+
     background: white;
+
+    width: 100%;
+
     max-width: 500px;
-    width: 100%;
+
     padding: 30px;
+
     border-radius: 18px;
+
     text-align: center;
-    box-shadow: 0 8px 30px rgba(0,0,0,.15);
+
 }
 
-.lock-icon {
-    font-size: 60px;
-}
 
-.lock-card input {
-    margin-top: 15px;
-}
-
-.lock-card button {
-    margin-top: 15px;
-    background: #dc2626;
-    color: white;
-    width: 100%;
-}
-
-/* ================= SELESAI ================= */
+/* SELESAI */
 
 #finishedPage {
+
     display: none;
+
     min-height: 100vh;
+
     align-items: center;
+
     justify-content: center;
+
     text-align: center;
+
     padding: 20px;
+
 }
 
-.finished-card {
+
+.finishedCard {
+
     background: white;
+
     padding: 40px;
-    max-width: 600px;
-    border-radius: 20px;
-    box-shadow: 0 8px 30px rgba(0,0,0,.15);
+
+    border-radius: 18px;
+
 }
 
-.finished-card h1 {
-    color: #dc2626;
-}
-
-/* ================= MOBILE ================= */
 
 @media(max-width:600px) {
 
-    .header-top {
-        align-items: flex-start;
+    .headerTop {
+
         flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 10px;
+
     }
 
     .timer {
-        width: 100%;
+
         text-align: center;
+
     }
 
-    .toolbar button {
-        width: 100%;
-    }
-
-    .exam-content {
-        padding: 10px;
-    }
-
-    #wordContainer {
-        padding: 5px;
-    }
-
-    .docx-wrapper {
-        padding: 5px !important;
-    }
 }
 
 </style>
+
 </head>
+
 
 <body>
 
 
-<!-- =====================================================
-     LOGIN
-===================================================== -->
+<!-- ================= LOGIN ================= -->
 
-<div id="loginPage" class="page">
+<div id="loginPage">
 
     <div class="card">
 
         <h1>📝 Sumatif Tengah Semester</h1>
 
-        <p>Silakan isi data sebelum memulai STS.</p>
+        <p style="text-align:center;">
+            Silakan isi data sebelum memulai STS.
+        </p>
+
 
         <label>Nama Siswa</label>
 
@@ -320,10 +364,7 @@ button {
         >
 
 
-        <button
-            class="btn-primary"
-            onclick="startExam()"
-        >
+        <button id="startButton">
             MULAI ULANGAN
         </button>
 
@@ -338,23 +379,24 @@ button {
 </div>
 
 
-<!-- =====================================================
-     HALAMAN UJIAN
-===================================================== -->
+
+<!-- ================= UJIAN ================= -->
 
 <div id="examPage">
 
     <div class="header">
 
-        <div class="header-top">
+        <div class="headerTop">
 
             <div>
 
-                <div class="school-title">
+                <b>
                     🏫 SUMATIF TENGAH SEMESTER
-                </div>
+                </b>
 
-                <div class="student-info">
+                <br>
+
+                <small>
 
                     Nama:
                     <span id="displayName"></span>
@@ -364,14 +406,14 @@ button {
                     Kelas:
                     <span id="displayClass"></span>
 
-                </div>
+                </small>
 
             </div>
 
 
             <div
-                class="timer"
-                id="timer">
+                id="timer"
+                class="timer">
 
                 00:00:00
 
@@ -382,30 +424,19 @@ button {
 
         <div class="toolbar">
 
-            <button
-                class="btn-fullscreen"
-                onclick="goFullscreen()">
-
+            <button id="fullscreenButton">
                 ⛶ FULLSCREEN
-
             </button>
 
-
-            <button
-                class="btn-word"
-                onclick="chooseWordFile()">
-
+            <button id="wordButton">
                 📄 PILIH FILE WORD
-
             </button>
-
 
             <input
                 type="file"
                 id="wordFile"
                 accept=".docx"
                 style="display:none"
-                onchange="loadSelectedWord(event)"
             >
 
         </div>
@@ -413,44 +444,25 @@ button {
     </div>
 
 
-    <div class="exam-content">
+    <div id="wordContainer">
 
-        <div class="notice">
-
-            <b>Petunjuk:</b>
-
-            Bacalah soal dengan teliti.
-            Tuliskan jawaban pada lembar jawaban/kertas
-            yang telah disediakan.
-            Jangan menutup halaman ulangan selama ujian berlangsung.
-
-        </div>
-
-
-        <div id="wordContainer">
-
-            <p style="text-align:center;">
-                Memuat soal...
-            </p>
-
-        </div>
+        <p style="text-align:center;">
+            ⏳ Memuat soal...
+        </p>
 
     </div>
 
 </div>
 
 
-<!-- =====================================================
-     HALAMAN TERKUNCI
-===================================================== -->
 
-<div id="lockPage" class="lock-page">
+<!-- ================= LOCK ================= -->
 
-    <div class="lock-card">
+<div id="lockPage">
 
-        <div class="lock-icon">
-            🔒
-        </div>
+    <div class="lockCard">
+
+        <h1>🔒</h1>
 
         <h2>ULANGAN TERKUNCI</h2>
 
@@ -458,9 +470,6 @@ button {
             Anda meninggalkan halaman ulangan.
         </p>
 
-        <p>
-            Masukkan password pengawas untuk melanjutkan.
-        </p>
 
         <input
             type="password"
@@ -469,7 +478,15 @@ button {
         >
 
 
-        <button onclick="unlockExam()">
+        <button
+            id="unlockButton"
+            style="
+                width:100%;
+                margin-top:15px;
+                background:#dc2626;
+                color:white;
+            "
+        >
             BUKA ULANGAN
         </button>
 
@@ -484,15 +501,14 @@ button {
 </div>
 
 
-<!-- =====================================================
-     HALAMAN SELESAI
-===================================================== -->
+
+<!-- ================= SELESAI ================= -->
 
 <div id="finishedPage">
 
-    <div class="finished-card">
+    <div class="finishedCard">
 
-        <h1>
+        <h1 style="color:#dc2626;">
             ⏰ WAKTU ULANGAN TELAH SELESAI
         </h1>
 
@@ -501,7 +517,7 @@ button {
         </p>
 
         <p>
-            Silakan ikuti instruksi dari guru/pengawas.
+            Silakan ikuti instruksi guru/pengawas.
         </p>
 
     </div>
@@ -509,11 +525,12 @@ button {
 </div>
 
 
+
 <script>
 
-/* =====================================================
-   PENGATURAN ULANGAN
-===================================================== */
+/* =================================================
+   PENGATURAN
+================================================= */
 
 const CONFIG = {
 
@@ -530,9 +547,9 @@ const CONFIG = {
 };
 
 
-/* =====================================================
+/* =================================================
    VARIABEL
-===================================================== */
+================================================= */
 
 let examStarted = false;
 
@@ -540,12 +557,34 @@ let examLocked = false;
 
 let examFinished = false;
 
-let timerInterval;
+let timerInterval = null;
 
 
-/* =====================================================
+/* =================================================
+   ELEMEN
+================================================= */
+
+const loginPage =
+    document.getElementById("loginPage");
+
+const examPage =
+    document.getElementById("examPage");
+
+const lockPage =
+    document.getElementById("lockPage");
+
+const finishedPage =
+    document.getElementById("finishedPage");
+
+
+/* =================================================
    MULAI ULANGAN
-===================================================== */
+================================================= */
+
+document
+.getElementById("startButton")
+.addEventListener("click", startExam);
+
 
 function startExam() {
 
@@ -570,16 +609,19 @@ function startExam() {
 
 
     const error =
-        document.getElementById("loginError");
+        document
+        .getElementById("loginError");
 
 
     error.textContent = "";
 
 
+    /* DATA KOSONG */
+
     if (
-        !name ||
-        !studentClass ||
-        !password
+        name === "" ||
+        studentClass === "" ||
+        password === ""
     ) {
 
         error.textContent =
@@ -589,6 +631,8 @@ function startExam() {
 
     }
 
+
+    /* PASSWORD */
 
     if (
         password !==
@@ -603,7 +647,10 @@ function startExam() {
     }
 
 
-    const now = new Date();
+    /* WAKTU */
+
+    const now =
+        new Date();
 
     const start =
         new Date(CONFIG.startDate);
@@ -631,45 +678,51 @@ function startExam() {
     }
 
 
-    document
-        .getElementById("displayName")
-        .textContent = name;
-
+    /* TAMPILKAN DATA */
 
     document
-        .getElementById("displayClass")
-        .textContent = studentClass;
+    .getElementById("displayName")
+    .textContent = name;
 
 
     document
-        .getElementById("loginPage")
-        .style.display = "none";
+    .getElementById("displayClass")
+    .textContent = studentClass;
 
 
-    document
-        .getElementById("examPage")
-        .style.display = "block";
+    /* PINDAH HALAMAN */
+
+    loginPage.style.display =
+        "none";
+
+    examPage.style.display =
+        "block";
 
 
     examStarted = true;
 
 
-    loadWordFromGitHub();
-
+    /* TIMER */
 
     startTimer();
+
+
+    /* WORD */
+
+    loadWord();
 
 }
 
 
-/* =====================================================
-   MEMUAT WORD DARI GITHUB
-===================================================== */
+/* =================================================
+   LOAD WORD DARI GITHUB
+================================================= */
 
-async function loadWordFromGitHub() {
+async function loadWord() {
 
     const container =
-        document.getElementById("wordContainer");
+        document
+        .getElementById("wordContainer");
 
 
     container.innerHTML = `
@@ -681,7 +734,7 @@ async function loadWordFromGitHub() {
             border-radius:10px;
         ">
 
-            ⏳ Sedang memuat soal Word...
+            ⏳ Memuat soal Word...
 
         </div>
 
@@ -690,7 +743,7 @@ async function loadWordFromGitHub() {
 
     try {
 
-        const wordURL =
+        const url =
             new URL(
                 CONFIG.wordFile,
                 window.location.href
@@ -698,30 +751,19 @@ async function loadWordFromGitHub() {
 
 
         console.log(
-            "Alamat Word:",
-            wordURL
+            "Memuat:",
+            url
         );
 
 
         const response =
-            await fetch(
-                wordURL,
-                {
-                    cache: "no-cache"
-                }
-            );
-
-
-        console.log(
-            "Status file:",
-            response.status
-        );
+            await fetch(url);
 
 
         if (!response.ok) {
 
             throw new Error(
-                "File Word tidak ditemukan. Status: "
+                "File soal tidak ditemukan. HTTP "
                 + response.status
             );
 
@@ -732,13 +774,6 @@ async function loadWordFromGitHub() {
             await response.blob();
 
 
-        console.log(
-            "Ukuran file:",
-            blob.size,
-            "bytes"
-        );
-
-
         if (blob.size === 0) {
 
             throw new Error(
@@ -746,171 +781,6 @@ async function loadWordFromGitHub() {
             );
 
         }
-
-
-        container.innerHTML = "";
-
-
-        await docx.renderAsync(
-
-            blob,
-
-            container,
-
-            null,
-
-            {
-
-                className: "docx",
-
-                inWrapper: true,
-
-                breakPages: true,
-
-                ignoreWidth: false,
-
-                ignoreHeight: false,
-
-                ignoreFonts: false,
-
-                useBase64URL: true,
-
-                renderHeaders: true,
-
-                renderFooters: true,
-
-                renderFootnotes: true,
-
-                renderEndnotes: true,
-
-                experimental: false,
-
-                debug: false
-
-            }
-
-        );
-
-
-        console.log(
-            "✅ File Word berhasil ditampilkan."
-        );
-
-    }
-
-
-    catch (error) {
-
-        console.error(
-            "❌ Gagal membaca Word:",
-            error
-        );
-
-
-        container.innerHTML = `
-
-            <div style="
-                background:white;
-                padding:30px;
-                border-radius:10px;
-                text-align:center;
-            ">
-
-                <h2 style="color:#dc2626;">
-
-                    ⚠️ SOAL WORD TIDAK DAPAT DIMUAT
-
-                </h2>
-
-
-                <p>
-                    Terjadi kesalahan saat membaca
-                    file soal.
-                </p>
-
-
-                <p style="
-                    background:#f3f4f6;
-                    padding:15px;
-                    border-radius:8px;
-                    word-break:break-word;
-                ">
-
-                    ${error.message}
-
-                </p>
-
-
-                <p>
-
-                    Silakan tekan tombol
-                    <b>PILIH FILE WORD</b>
-                    untuk mencoba membuka file secara manual.
-
-                </p>
-
-            </div>
-
-        `;
-
-    }
-
-}
-
-
-/* =====================================================
-   PILIH WORD SECARA MANUAL
-===================================================== */
-
-function chooseWordFile() {
-
-    document
-        .getElementById("wordFile")
-        .click();
-
-}
-
-
-/* =====================================================
-   MEMBACA WORD YANG DIPILIH
-===================================================== */
-
-async function loadSelectedWord(event) {
-
-    const file =
-        event.target.files[0];
-
-
-    if (!file) {
-
-        return;
-
-    }
-
-
-    const container =
-        document.getElementById("wordContainer");
-
-
-    container.innerHTML = `
-
-        <div style="
-            background:white;
-            padding:30px;
-            text-align:center;
-        ">
-
-            ⏳ Membaca file Word...
-
-        </div>
-
-    `;
-
-
-    try {
-
-        const blob =
-            await file.arrayBuffer();
 
 
         container.innerHTML = "";
@@ -950,10 +820,10 @@ async function loadSelectedWord(event) {
 
         );
 
+
     }
 
-
-    catch (error) {
+    catch(error) {
 
         console.error(error);
 
@@ -967,13 +837,18 @@ async function loadSelectedWord(event) {
                 border-radius:10px;
             ">
 
-                <h3 style="color:#dc2626;">
-                    ⚠️ File Word tidak dapat dibaca
-                </h3>
+                <h2 style="color:red;">
+                    ⚠️ SOAL TIDAK DAPAT DIMUAT
+                </h2>
 
                 <p>
-                    Pastikan file yang dipilih
-                    benar-benar berformat .docx
+                    ${error.message}
+                </p>
+
+                <p>
+                    Gunakan tombol
+                    <b>PILIH FILE WORD</b>
+                    untuk membuka file secara manual.
                 </p>
 
             </div>
@@ -985,9 +860,95 @@ async function loadSelectedWord(event) {
 }
 
 
-/* =====================================================
+/* =================================================
+   PILIH FILE WORD MANUAL
+================================================= */
+
+document
+.getElementById("wordButton")
+.addEventListener(
+    "click",
+    function() {
+
+        document
+        .getElementById("wordFile")
+        .click();
+
+    }
+);
+
+
+document
+.getElementById("wordFile")
+.addEventListener(
+    "change",
+    loadSelectedWord
+);
+
+
+async function loadSelectedWord(event) {
+
+    const file =
+        event.target.files[0];
+
+
+    if (!file) return;
+
+
+    const container =
+        document
+        .getElementById("wordContainer");
+
+
+    try {
+
+        const buffer =
+            await file.arrayBuffer();
+
+
+        container.innerHTML = "";
+
+
+        await docx.renderAsync(
+
+            buffer,
+
+            container,
+
+            null,
+
+            {
+
+                className: "docx",
+
+                inWrapper: true,
+
+                breakPages: true,
+
+                useBase64URL: true
+
+            }
+
+        );
+
+    }
+
+    catch(error) {
+
+        console.error(error);
+
+
+        container.innerHTML =
+            "<p>File Word tidak dapat dibaca.</p>";
+
+    }
+
+}
+
+
+/* =================================================
    TIMER
-===================================================== */
+================================================= */
 
 function startTimer() {
 
@@ -1003,20 +964,12 @@ function startTimer() {
 }
 
 
-/* =====================================================
-   UPDATE TIMER
-===================================================== */
-
 function updateTimer() {
 
     if (
         !examStarted ||
         examFinished
-    ) {
-
-        return;
-
-    }
+    ) return;
 
 
     const now =
@@ -1071,53 +1024,47 @@ function updateTimer() {
 
 
     document
-        .getElementById("timer")
-        .textContent =
+    .getElementById("timer")
+    .textContent =
 
-        String(hours).padStart(2, "0")
+        String(hours).padStart(2,"0")
         + ":"
         +
-        String(minutes).padStart(2, "0")
+        String(minutes).padStart(2,"0")
         + ":"
         +
-        String(seconds).padStart(2, "0");
+        String(seconds).padStart(2,"0");
 
 }
 
 
-/* =====================================================
+/* =================================================
    FULLSCREEN
-===================================================== */
+================================================= */
 
-function goFullscreen() {
+document
+.getElementById("fullscreenButton")
+.addEventListener(
+    "click",
+    function() {
 
-    const element =
-        document.documentElement;
+        if (
+            document.documentElement.requestFullscreen
+        ) {
 
+            document
+            .documentElement
+            .requestFullscreen();
 
-    if (
-        element.requestFullscreen
-    ) {
-
-        element.requestFullscreen();
-
-    }
-
-
-    else if (
-        element.webkitRequestFullscreen
-    ) {
-
-        element.webkitRequestFullscreen();
+        }
 
     }
+);
 
-}
 
-
-/* =====================================================
+/* =================================================
    DETEKSI PINDAH TAB
-===================================================== */
+================================================= */
 
 document.addEventListener(
     "visibilitychange",
@@ -1141,9 +1088,7 @@ document.addEventListener(
 
         ) {
 
-            lockExam(
-                "Anda meninggalkan halaman ulangan."
-            );
+            lockExam();
 
         }
 
@@ -1151,47 +1096,42 @@ document.addEventListener(
 );
 
 
-/* =====================================================
-   KUNCI ULANGAN
-===================================================== */
+/* =================================================
+   LOCK
+================================================= */
 
-function lockExam(message) {
-
-    if (examFinished) {
-
-        return;
-
-    }
-
+function lockExam() {
 
     examLocked = true;
 
 
-    document
-        .getElementById("examPage")
-        .style.display = "none";
+    examPage.style.display =
+        "none";
+
+
+    lockPage.style.display =
+        "flex";
 
 
     document
-        .getElementById("lockPage")
-        .style.display = "flex";
-
-
-    document
-        .getElementById("lockMessage")
-        .textContent = message;
-
-
-    document
-        .getElementById("supervisorPassword")
-        .value = "";
+    .getElementById("lockMessage")
+    .textContent =
+        "Anda meninggalkan halaman ulangan.";
 
 }
 
 
-/* =====================================================
-   BUKA KUNCI
-===================================================== */
+/* =================================================
+   UNLOCK
+================================================= */
+
+document
+.getElementById("unlockButton")
+.addEventListener(
+    "click",
+    unlockExam
+);
+
 
 function unlockExam() {
 
@@ -1204,9 +1144,6 @@ function unlockExam() {
     const error =
         document
         .getElementById("lockError");
-
-
-    error.textContent = "";
 
 
     if (
@@ -1225,7 +1162,6 @@ function unlockExam() {
     const now =
         new Date();
 
-
     const end =
         new Date(
             CONFIG.endDate
@@ -1241,24 +1177,24 @@ function unlockExam() {
     }
 
 
+    error.textContent = "";
+
     examLocked = false;
 
 
-    document
-        .getElementById("lockPage")
-        .style.display = "none";
+    lockPage.style.display =
+        "none";
 
 
-    document
-        .getElementById("examPage")
-        .style.display = "block";
+    examPage.style.display =
+        "block";
 
 }
 
 
-/* =====================================================
-   ULANGAN SELESAI
-===================================================== */
+/* =================================================
+   SELESAI
+================================================= */
 
 function showFinished() {
 
@@ -1272,49 +1208,24 @@ function showFinished() {
     );
 
 
-    document
-        .getElementById("loginPage")
-        .style.display = "none";
+    loginPage.style.display =
+        "none";
 
+    examPage.style.display =
+        "none";
 
-    document
-        .getElementById("examPage")
-        .style.display = "none";
+    lockPage.style.display =
+        "none";
 
-
-    document
-        .getElementById("lockPage")
-        .style.display = "none";
-
-
-    document
-        .getElementById("finishedPage")
-        .style.display = "flex";
+    finishedPage.style.display =
+        "flex";
 
 }
 
 
-/* =====================================================
-   BLOKIR KLIK KANAN
-===================================================== */
-
-document.addEventListener(
-    "contextmenu",
-    function(event) {
-
-        if (examStarted) {
-
-            event.preventDefault();
-
-        }
-
-    }
-);
-
-
-/* =====================================================
+/* =================================================
    BLOKIR COPY
-===================================================== */
+================================================= */
 
 document.addEventListener(
     "copy",
@@ -1330,9 +1241,9 @@ document.addEventListener(
 );
 
 
-/* =====================================================
+/* =================================================
    BLOKIR CUT
-===================================================== */
+================================================= */
 
 document.addEventListener(
     "cut",
@@ -1348,71 +1259,17 @@ document.addEventListener(
 );
 
 
-/* =====================================================
-   BLOKIR SHORTCUT
-===================================================== */
+/* =================================================
+   BLOKIR KLIK KANAN
+================================================= */
 
 document.addEventListener(
-    "keydown",
+    "contextmenu",
     function(event) {
 
-        if (!examStarted) {
-
-            return;
-
-        }
-
-
-        if (
-
-            (event.ctrlKey && event.key === "c")
-
-            ||
-
-            (event.ctrlKey && event.key === "x")
-
-            ||
-
-            (event.ctrlKey && event.key === "u")
-
-            ||
-
-            (event.ctrlKey && event.key === "s")
-
-            ||
-
-            (event.ctrlKey && event.key === "p")
-
-            ||
-
-            event.key === "F12"
-
-        ) {
+        if (examStarted) {
 
             event.preventDefault();
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   PERINGATAN KELUAR HALAMAN
-===================================================== */
-
-window.addEventListener(
-    "beforeunload",
-    function(event) {
-
-        if (
-            examStarted &&
-            !examFinished
-        ) {
-
-            event.preventDefault();
-
-            event.returnValue = "";
 
         }
 
@@ -1422,4 +1279,5 @@ window.addEventListener(
 </script>
 
 </body>
+
 </html>
